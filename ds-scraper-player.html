@@ -10,6 +10,27 @@
         #header {
             background-color: rgb(250, 200, 240);
         }
+        .right {
+            width: 60%;
+            float: right;
+            margin: 10px;
+            margin-left: 20px;
+        }
+        .left {
+            width: 60%;
+            float: left;
+            margin: 10px;
+            margin-right: 20px;
+        }
+        img {
+            border: 2px solid rgb(200,100,100);
+            width: 100%;
+            height: auto;
+        }
+        .caption {
+            text-align: center;
+            color: grey;
+        }
     </style>
 </head>
 <body>
@@ -35,20 +56,30 @@
     </div> <!--#navbar-->
     <div id="container">
         <div id="main">
+            <div id="time"><p>Last Update: 10/27/2022</p></div>
             <div id="github"><a href="https://github.com/zzaqian/DS-Scraper-Player" target="_blank">Github Link</a></div>
             <h2>Motivations</h2>
             <p>
                 This project is to automate the BGM downloading process on the Japanese royalty-free BGM website <a href="https://dova-s.jp/" target="_blank">Dova-Syndrome</a>. Why do I want to do this?
             </p>
+            <div class="right">
+                <img src="img/ds-homepage.png" alt="Dova-Syndrome website homepage" />
+                <p class="caption">Dova-Syndrome website homepage</p>
+            </div>
             <p>
                 So I grew up watching playthroughs of tons of Japanese free games. The designers of such free games often used music they found on the web. I liked many of these BGMs, so I searched for similar ones. Not long ago, I came across Dova-Syndrome, which is one of the websites where composers publish their pieces, and people can just download them for free. I loved the great amount of BGMs on Dova-Syndrome, but there was one problem: it was so inconvenient to listen to these BGMs.
             </p>
             <p>
                 The website provides two ways for people to listen to the BGMs. People can either download them or listen to them on <a href="https://www.youtube.com/c/DOVASYNDROMEYouTubeOfficial" target="_blank">YouTube</a>. Yes, there is an official YouTube channel of Dova-Syndrome where all the newly published BGMs are uploaded as videos. People can listen to all the BGMs through this channel with YouTube Premium, but I didn’t really want to spend this money on YouTube.
             </p>
+            <div class="left">
+                <img src="img/ds-2.png" alt="Project: downloadLatest function" />
+                <p class="caption">Project: downloadLatest function</p>
+            </div>
             <p>
                 This left me the only alternative: to download all the BGMs I wanted to listen to. However, there is not a “batch download” option; people have to manually download every single BGM, and this process is simply painful. To download one BGM, you have to click three times, which brings you two pages away from the index page, and you need to close the final download page. Imagine repeating that one hundred times. Also, the layouts of the pages can be very confusing, so it’s even more painful to orient through the pages. If I could find a way to automate this task, it would save me much time and energy. This was my initial motivation for the project.
             </p>
+            <br />
             <h2>Challenges</h2>
             <p>
                 Generally speaking, the most challenging part of this project for me was to learn about how to use the Python Requests library and BeautifulSoup library to navigate and parse HTML pages.
@@ -56,12 +87,20 @@
             <p>
                 Although I am taking Intro to Web Development at school this semester, which teaches a good deal of things about HTML and CSS, I started this project before my class got to any in-depth discussions about things like HTML forms, unfortunately. That being said, I had to complement my knowledge about HTML with online resources.
             </p>
+            <div class="right">
+                <img src="img/ds-4.png" alt="Project: playLatest function" />
+                <p class="caption">Project: playLatest function</p>
+            </div>
             <p>
                 I knew about how to use the Requests library from my highschool CS class, but there was a gap in my knowledge about it, which as a result got me stuck for one whole night on one part of the scraper. But let’s talk about the BeautifulSoup library first. At the beginning of the project, I didn’t know how to parse HTML pages or obtain information from them, so I went to read this book called <a href="https://www.oreilly.com/library/view/web-scraping-with/9781491985564/" target="_blank">Web Scraping with Python</a>. From this book I learned so many things: I got familiar with BeautifulSoup, which does the job of parsing websites; I learned how to use the “post” method of Requests to get through HTML forms; I even learned about regular expressions (what they are and how to use them in Python).
             </p>
             <p>
                 Equipped with this knowledge, I started the actual project. The most crucial function to be implemented was downloading one BGM from Dova-Syndrome. If I could get to the download page of one BGM and download it, I would be able to navigate through the index pages and automatically download thousands of BGMs.
             </p>
+            <div class="left">
+                <img src="img/ds-6.png" alt="Project: playFavorites function" />
+                <p class="caption">Project: playFavorites function</p>
+            </div>
             <p>
                 The base case was the most difficult to build. As I mentioned before, manually downloading one BGM from the index page requires three clicks. Now I looked at the source codes of the web pages traveled through in the process, I understood what is happening under the hood: the first click simply takes you from the index page to the player page of this BGM, on which you can only play it but not download it; the next click takes you from the player page to the downloader page by posting an HTML form of more than ten hidden inputs; now on the downloader page, the final click submits another similar HTML form with hidden inputs, which finally gives you the actual music file. So it’s one “get” and two “posts”. The only difference between them is that “post” takes in a dictionary of parameters, which are mostly the hidden inputs. This data can be retrieved with the BeautifulSoup library.
             </p>
